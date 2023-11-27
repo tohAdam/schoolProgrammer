@@ -1,4 +1,3 @@
-John Leo Fuentes
 #include <stdio.h>
 
 // Function to determine the quadrant based on the angle and display the quadrant diagram
