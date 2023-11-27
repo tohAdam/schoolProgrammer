@@ -1,40 +1,39 @@
 #include <stdio.h>
 #include <math.h>
 
-void getInput(int*, int*, int*);
-void checkSolution(int, int, int);
+// Function prototypes
+void getInput(double*, double*, double*);
+void checkSolution(double, double, double);
 
 int main()
 {
-    int a, b, c;
-    
+    double a, b, c;
+
     // Function to get input values for the quadratic equation
     getInput(&a, &b, &c);
-    
+
     // Function to check and print the solutions of the quadratic equation
     checkSolution(a, b, c);
-
-    // Removed getch() for simplicity
 
     return 0;
 }
 
-void getInput(int* a, int* b, int* c)
+void getInput(double* a, double* b, double* c)
 {
     // Prompt the user for input values
     printf("\n\n\tQuadratic Equation :: a*x^2 + b*x + c = 0");
     printf("\n\n\tEnter the value of a: ");
-    scanf("%d", a);
+    scanf("%lf", a);
     printf("\n\n\tEnter the value of b: ");
-    scanf("%d", b);
+    scanf("%lf", b);
     printf("\n\n\tEnter the value of c: ");
-    scanf("%d", c);
+    scanf("%lf", c);
 }
 
-void checkSolution(int a, int b, int c)
+void checkSolution(double a, double b, double c)
 {
-    int d;
-    float root1, root2;
+    double d;
+    double root1, root2;
 
     // Check if the equation is not quadratic
     if (a == 0 && b == 0)
@@ -46,8 +45,15 @@ void checkSolution(int a, int b, int c)
     // Check if the equation is linear
     if (a == 0)
     {
-        float root = -(c / (float)b);
-        printf("\n\n\tOnly 1 solution :: %0.2f", root);
+        if (b != 0)
+        {
+            double root = -c / b;
+            printf("\n\n\tOnly 1 solution :: %0.2lf", root);
+        }
+        else
+        {
+            printf("\n\n\tInvalid input: Division by zero.");
+        }
         return;
     }
 
@@ -57,12 +63,18 @@ void checkSolution(int a, int b, int c)
     // Check the nature of the roots
     if (d < 0)
     {
-        printf("\n\n\tNo real roots exist !!");
-        return;
-    }
+        // Calculate real and imaginary parts for complex roots
+        double realPart = -b / (2 * a);
+        double imagPart = sqrt(fabs(d)) / (2 * a);
 
-    // Calculate and print the roots
-    root1 = (-b + sqrt(d)) / (2 * a);
-    root2 = (-b - sqrt(d)) / (2 * a);
-    printf("\n\n\tThe two roots are :: %0.2f, %0.2f", root1, root2);
+        // Print complex roots
+        printf("\n\n\tComplex roots are :: %0.2lf + %0.2lfi and %0.2lf - %0.2lfi", realPart, imagPart, realPart, imagPart);
+    }
+    else
+    {
+        // Calculate and print the real roots
+        root1 = (-b + sqrt(d)) / (2 * a);
+        root2 = (-b - sqrt(d)) / (2 * a);
+        printf("\n\n\tThe two real roots are :: %0.2lf, %0.2lf", root1, root2);
+    }
 }
