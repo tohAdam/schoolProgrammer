@@ -14,7 +14,7 @@ int main()
     char type;
     float fare;
     int entryHr, entryMin, exitHr, exitMin, time;
-    
+
     // Function to get information from the user
     getInfo(&type, &entryHr, &entryMin, &exitHr, &exitMin);
 
@@ -27,30 +27,28 @@ int main()
     // Function to print the details
     print(type, entryHr, entryMin, exitHr, exitMin, fare, time);
 
-    // Removed getch() for simplicity
-
     return 0;
 }
 
 void getInfo(char *type, int *hEntry, int *mEntry, int *hExit, int *mExit)
 {
-    printf("\n\n\tPlease enter the following details\n");
-    printf("\n\tType of vehicle : ");
+    printf("\n\n\tC(Car) T(Truck) B(Bus)\n");
+    printf("\n\tType of vehicle: ");
     scanf(" %c", type); // Added space before %c to consume the newline character
-    printf("\n\tHour vehicle entered the lot (0-24) : ");
+    printf("\n\tHour vehicle entered the lot (0-24): ");
     scanf("%d", hEntry);
-    printf("\n\tMinute vehicle entered the lot (0-60) :");
+    printf("\n\tMinute vehicle entered the lot (0-60): ");
     scanf("%d", mEntry);
-    printf("\n\tHour vehicle left the lot (0-24) : ");
+    printf("\n\tHour vehicle left the lot (0-24): ");
     scanf("%d", hExit);
-    printf("\n\tMinute vehicle left the lot (0-60) : ");
+    printf("\n\tMinute vehicle left the lot (0-60): ");
     scanf("%d", mExit);
 }
 
 int calcTime(char type, int hEntry, int mEntry, int hExit, int mExit)
 {
     int hour;
-    
+
     if (mEntry > mExit)
     {
         mExit += 60;
@@ -113,15 +111,14 @@ float chargeFare(char type, int hours)
 
 void print(char type, int hEntry, int mEntry, int hExit, int mExit, float fare, int time)
 {
-    printf("\n\n\t\t***********************************");
-    printf("\n\t\t* PARKING LOT CHARGES *");
-    printf("\n\t\t***********************************");
-    printf("\n\n\n\t\t* Type of vehicle \t %c", type);
-    printf("\n\n\n\t\t* Time in \t %d : %d", hEntry, mEntry);
-    printf("\n\n\n\t\t* Time out \t %d : %d", hExit, mExit);
-    printf("\n\t\t ------------");
-    printf("\n\n\n\t\t* Parking time \t %d : %d", netHours, netMin);
-    printf("\n\n\n\t\t* Round off hours \t %d", time);
-    printf("\n\t\t ------------");
-    printf("\n\n\n\t\t* Total charges generated \t $%.2f", fare);
+    // Print details here using printf statements
+    printf("Vehicle Type: %c\n", type);
+    printf("TIME - IN\t\t%02d:%02d\n", hEntry, mEntry);
+    printf("TIME - OUT\t\t%02d:%02d\n", hExit, mExit);
+    printf("\t\t\t______\n");
+    
+    printf("PARKING TIME\t\t%d: %d", netHours, netMin);
+    printf("\nROUNDED TOTAL \t\t%d\n", time);
+    printf("\t\t\t______\n");
+    printf("TOTAL CHARGE\t\t$%.2f\n", fare);
 }
